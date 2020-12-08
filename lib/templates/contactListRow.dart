@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../objects/contact.dart';
 
-Widget contactListRow(BuildContext context, Contact contact) {
+Widget contactListRow(BuildContext context, Map contact) {
+  print(contact);
   return Card(
     margin: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
     child: Padding(
@@ -11,7 +12,7 @@ Widget contactListRow(BuildContext context, Contact contact) {
             Expanded(
               flex: 5,
               child: Text(
-                '${contact.name} ${contact.lastname}',
+                '${contact['name']} ${contact['lastname']}',
                 style: TextStyle(
                   fontSize: 24.0,
                   color: Colors.grey[800],

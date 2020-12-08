@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:formulario/objects/list.dart';
+import 'package:formulario/objects/contact.dart';
 import 'package:formulario/templates/ContactListRow.dart';
-import '../objects/list.dart';
+import '../objects/Contacts.dart';
+import 'package:formulario/db/db_helper.dart';
 
 class List extends StatefulWidget {
   @override
@@ -8,8 +11,11 @@ class List extends StatefulWidget {
 }
 
 class _ListState extends State<List> {
+  var contacts;
+
   @override
   Widget build(BuildContext context) {
+    getContacts();
     return Scaffold(
       appBar: AppBar(
         title: Text('Lista de Contactos'),
@@ -17,7 +23,7 @@ class _ListState extends State<List> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: contacts
-            .map((contact) => contactListRow(context, contact))
+            .map<Widget>((element) => contactListRow(context, element))
             .toList(),
       ),
       floatingActionButton: FloatingActionButton(
@@ -30,7 +36,12 @@ class _ListState extends State<List> {
     );
   }
 
-  Future onGoBack(dynamic value) {
+  Future<void> onGoBack(dynamic value) {
+    setState(() {});
+  }
+
+  void getContacts() async {
+    contacts = await DbHelper.instance.queryAll();
     setState(() {});
   }
 }

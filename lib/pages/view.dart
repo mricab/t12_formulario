@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:formulario/db/db_helper.dart';
 import 'package:formulario/objects/list.dart';
 import '../objects/contact.dart';
 
@@ -12,7 +13,8 @@ class _ViewState extends State<View> {
   @override
   Widget build(BuildContext context) {
     args = ModalRoute.of(context).settings.arguments;
-    Contact contact = args['contact'];
+    var contact = args['contact'];
+    var id = args['id'];
 
     return Scaffold(
       appBar: AppBar(
@@ -29,19 +31,20 @@ class _ViewState extends State<View> {
               size: 80,
             ),
             Text(
-              contact.name + ' ' + contact.lastname,
+              contact['name'] + ' ' + contact['lastname'],
               style: TextStyle(fontSize: 40),
             ),
             SizedBox(
               height: 20.0,
             ),
-            Text('📱 ' + contact.phone, style: TextStyle(fontSize: 25)),
-            Text('📍 ' + contact.address, style: TextStyle(fontSize: 25)),
+            Text('📱 ' + contact['phone'], style: TextStyle(fontSize: 25)),
+            Text('📍 ' + contact['address'], style: TextStyle(fontSize: 25)),
             SizedBox(
               height: 20.0,
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
+                int i = await DbHelper.instance.delete(id);
                 contacts.remove(args['contact']);
                 Navigator.pop(context);
                 Navigator.pop(context);

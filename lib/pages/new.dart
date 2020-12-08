@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:formulario/db/db_helper.dart';
 import 'package:formulario/objects/list.dart';
 import 'package:validators/validators.dart';
 import '../objects/contact.dart';
@@ -45,19 +46,20 @@ class _NewState extends State<New> {
                 height: 20.0,
               ),
               TextButton(
-                onPressed: () {
+                onPressed: () async {
                   if (!isNull(name.text) &&
                       !isNull(lastname.text) &&
                       !isNull(address.text) &&
                       isNumeric(phone.text)) {
-                    Contact contact = Contact(
-                        name: name.text,
-                        lastname: lastname.text,
-                        address: address.text,
-                        phone: phone.text);
-                    contacts.add(contact);
+                    var contact = {
+                      'name': name.text,
+                      'lastname': lastname.text,
+                      'address': address.text,
+                      'phone': phone.text,
+                    };
+                    int i = await DbHelper.instance.insert(contact);
                     Navigator.pushReplacementNamed(context, '/view',
-                        arguments: {'contact': contact});
+                        arguments: {'contact': contact, 'id': i});
                   }
                 },
                 child: Text('Grabar'),
