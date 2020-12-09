@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:formulario/db/db_helper.dart';
-import 'package:formulario/objects/list.dart';
 import 'package:validators/validators.dart';
-import '../objects/contact.dart';
 
 class New extends StatefulWidget {
   @override

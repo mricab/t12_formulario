@@ -28,7 +28,7 @@ class DbHelper {
   _onCreate(Database db, int version) async {
     await db.execute('''
         CREATE TABLE contacts(
-        id INTEGER PRYMARY KEY,
+        id INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
         lastname TEXT NOT NULL,
         address TEXT NOT NULL,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:formulario/db/db_helper.dart';
-import 'package:formulario/objects/list.dart';
 import '../objects/contact.dart';
 
 class View extends StatefulWidget {
@@ -37,7 +36,8 @@ class _ViewState extends State<View> {
             SizedBox(
               height: 20.0,
             ),
-            Text('📱 ' + contact['phone'], style: TextStyle(fontSize: 25)),
+            Text('📱 ' + contact['phone'].toString(),
+                style: TextStyle(fontSize: 25)),
             Text('📍 ' + contact['address'], style: TextStyle(fontSize: 25)),
             SizedBox(
               height: 20.0,
@@ -45,10 +45,7 @@ class _ViewState extends State<View> {
             TextButton(
               onPressed: () async {
                 int i = await DbHelper.instance.delete(id);
-                contacts.remove(args['contact']);
-                Navigator.pop(context);
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/list');
+                Navigator.popUntil(context, ModalRoute.withName('/list'));
               },
               child: Text('Eliminar'),
               style: TextButton.styleFrom(
