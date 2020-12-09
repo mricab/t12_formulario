@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:formulario/db/db_helper.dart';
-import '../objects/contact.dart';
 
 class View extends StatefulWidget {
   @override
