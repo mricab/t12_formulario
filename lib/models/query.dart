@@ -22,6 +22,7 @@ class Query {
     var rawData = await DbHelper.instance.query(columns, wheres, args);
     var preparedData = convert(rawData);
     var filteredByDistanceData = filterByDistance(preparedData);
+    printQuery(filteredByDistanceData);
     return filteredByDistanceData;
   }
 
@@ -37,16 +38,30 @@ class Query {
   }
 
   List<Service> filterByDistance(List<Service> list) {
+    List<Service> newList = new List();
     for (var service in list) {
-      if (service.distance < proximity) {
-        list.remove(service);
+      if (service.distance <= proximity) {
+        newList.add(service);
       }
     }
-    return list;
+    return newList;
   }
 
   void setReferencePoint(double refLatitude, double refLongitude) {
     _refLatitude = refLatitude;
     _refLongitude = refLongitude;
+  }
+
+  void printQuery(list) {
+    for (var service in list) {
+      print(service.toString());
+    }
+  }
+
+  bool isSet() {
+    return (category != null &&
+        score != null &&
+        proximity != null &&
+        region != null);
   }
 }

@@ -124,14 +124,11 @@ class _SearchState extends State<Search> {
                     onPressed: () async {
                       _formKey.currentState.save();
                       _query.setReferencePoint(-17.783252, -63.181759);
-                      // print(_query.category);
-                      // print(_query.score);
-                      // print(_query.proximity);
-                      // print(_query.region);
-                      // var services = await _query.getAll();
-                      var services = await _query.getQuery();
-                      Navigator.pushNamed(context, '/list',
-                          arguments: {'services': services});
+                      if (_query.isSet()) {
+                        var services = await _query.getQuery();
+                        Navigator.pushNamed(context, '/list',
+                            arguments: {'services': services});
+                      }
                     },
                     child: Text('Buscar'),
                     style: TextButton.styleFrom(

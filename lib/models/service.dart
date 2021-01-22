@@ -52,8 +52,9 @@ class Service {
   setReference(double reflatitude, double reflongitude) {
     _refLatitude = reflatitude;
     _refLongitude = reflongitude;
-    distance =
+    double d =
         calculateDistance(latitude, longitude, _refLatitude, _refLongitude);
+    distance = double.parse(d.toStringAsFixed(2));
   }
 
   double calculateDistance(lat1, lon1, lat2, lon2) {
@@ -64,5 +65,13 @@ class Service {
         c((lat2 - lat1) * p) / 2 +
         c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
     return 12742 * asin(sqrt(a));
+  }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    String serviceString =
+        '{ $id, $photo, $providerName, $category, $serviceTitle, $description, $score, $latitude, $longitude, $region, $distance, $_refLatitude, $_refLongitude}';
+    return serviceString;
   }
 }
